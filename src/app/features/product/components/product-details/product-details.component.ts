@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductServiceService } from '../../services/product-service.service';
 import { ProductInterface } from '../../models/product-interface';
@@ -10,10 +10,18 @@ import { ProductInterface } from '../../models/product-interface';
   styleUrl: './product-details.component.css',
 })
 export class ProductDetailsComponent {
+  onUpdateQty(arg0: number) {
+    throw new Error('Method not implemented.');
+  }
+  @Output() updateProductQty = new EventEmitter<{
+    id: string;
+    newCount: number;
+  }>();
   productId!: string | null;
   productDetails: ProductInterface = {} as ProductInterface;
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly productService = inject(ProductServiceService);
+  product: any;
 
   getProdId() {
     this.activatedRoute.paramMap.subscribe({

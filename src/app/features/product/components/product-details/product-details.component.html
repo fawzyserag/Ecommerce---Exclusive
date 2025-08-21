@@ -1,14 +1,54 @@
-<section class="my-15">
-  <div class="container mx-auto">
-    <div class="grid sm:grid-cols-12">
-      <div class="sm:col-span-4">
-        <img [src]="productDetails.imageCover" alt="" class="w-full">
+<section class="container mx-auto p-10">
+  <div class="breadcrumb">
+    <a routerLink="/home" class="text-gray-400 cursor-pointer">Home</a>
+    <span class="text-gray-300 ms-2 me-2">/</span>
+    <span class="cursor-pointer text-main">{{ productDetails.title }}</span>
+  </div>
+  <div class="w-full bg-white shadow-2xl mt-20 mb-20">
+    <div class="flex flex-row gap-10 mx-auto items-center">
+      <div class="">
+        <img [src]="productDetails.imageCover" alt="" class="w-100" />
       </div>
-      <div class="sm:col-span-8">
-        <h1 class="text-4xl font-bold">{{productDetails.title}}</h1>
-        <p class="my-5">{{productDetails.description}}</p>
-        <button class="main-btn opacity-100">Add To Cart</button>
+      <div class="p-3">
+        <div>
+          <h1 class="text-4xl font-bold">{{ productDetails.title }}</h1>
+          <p class="my-5">
+            <i class="fa fa-star text-yellow-300"></i
+            ><i class="fa fa-star text-yellow-300"></i
+            ><i class="fa fa-star text-yellow-300"></i
+            ><i class="fa fa-star text-yellow-300"></i
+            ><i class="fa fa-star text-yellow-300"></i
+            >{{ productDetails.ratingsAverage }}
+            <span class="text-gray-400 ms-2"
+              >({{ productDetails.ratingsQuantity }}Review)</span
+            >
+          </p>
+          <p class="my-5">{{ productDetails.description }}</p>
+        </div>
+        <hr class="text-gray-300 my-10" />
+        <div class="flex flex-row gap-3">
+          <div class="col-span-2">
+            <button
+              (click)="onUpdateQty(product.count - 1)"
+              class="border border-main px-3 py-2 rounded hover:bg-main hover:text-white cursor-pointer transition duration-300"
+            >
+              -
+            </button>
+            <span class="mx-3">{{ product.count }}</span>
+            <button
+              (click)="onUpdateQty(product.count + 1)"
+              class="border border-main px-3 py-2 rounded hover:bg-main hover:text-white cursor-pointer transition duration-300"
+            >
+              +
+            </button>
+          </div>
+          <div>
+            <button class="main-btn opacity-100 w-50">Add To Cart</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+

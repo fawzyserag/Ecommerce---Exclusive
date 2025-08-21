@@ -25,7 +25,7 @@ import { passwordMatchVlidator } from '../../../../shared/helpers/passowrd-valid
 export class RegisterComponent {
   resMsg: string = '';
   isLoading = true;
-  authForm!: FormGroup;
+  authForm! : FormGroup;
   isShowPassword: boolean = true;
   private readonly authService = inject(AuthServiceService);
   private readonly router = inject(Router);

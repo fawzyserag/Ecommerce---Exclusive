@@ -1,16 +1,140 @@
+<!--
+
 <div
-  [routerLink]="['/product-details', product._id]"
-  class="hover:border hover:border-main p-3 rounded-xl hover:shadow-main cursor-pointer group"
+  class="rounded-lg shadow cursor-pointer group relative mb-2"
 >
-  <img [src]="product.imageCover" class="w-full" alt="" />
-  <h5 class="text-main">{{ product.category.name }}</h5>
+  <img
+    [src]="product.imageCover"
+    class="w-100"
+    alt=""
+  />
+  <i (click)="addToWishlist(product._id)" class="fa-regular fa-heart shadow p-2 rounded-full absolute top-3 right-3 bg-white hover:bg-main hover:text-white"></i>
+  <i [routerLink]="['/product-details', product._id]" class="fa-regular fa-eye shadow p-2 rounded-full absolute top-12 right-3 bg-white hover:bg-main hover:text-white"></i>
+  <div class="w-15 p-1 bg-main text-center text-white rounded-lg absolute top-3 left-4 ">-50%</div>
+  <button (click)="onAddToCart()" class="main-btn bg-black rounded-lg rounded-t-0">Add To Cart</button>
+</div>
+<div>
+  <h5 class="text-main ">{{ product.category.name }}</h5>
   <h4 class="font-bold line-clamp-1">{{ product.title }}</h4>
-  <div class="flex justify-between my-5">
-    <span>{{ product.price }}EGP</span>
+  <div class="flex flex-col justify-between my-2">
+    <span class="text-main">{{ product.price |currency: 'GBP' }}</span>
     <span
       ><i class="fa-solid fa-star text-rating"></i
       >{{ product.ratingsAverage }}</span
     >
   </div>
-  <button class="main-btn">Add To Cart</button>
+</div>
+-->
+
+<div class="card">
+  <!-- <div class="badge">HOT SALE</div> -->
+  <div class="rounded-lg shadow cursor-pointer group relative mb-2">
+    <img [src]="product.imageCover" class="w-90" alt="" />
+    <i
+      (click)="addToWishlist(product._id)"
+      class="fa-regular fa-heart shadow p-2 rounded-full absolute top-3 right-3 bg-white hover:bg-main hover:text-white"
+    ></i>
+    <i
+      [routerLink]="['/product-details', product._id]"
+      class="fa-regular fa-eye shadow p-2 rounded-full absolute top-12 right-3 bg-white hover:bg-main hover:text-white"
+    ></i>
+  </div>
+  <div class="info">
+    <div class="cat">{{ product.category.name }}</div>
+    <h2 class="title line-clamp-1">{{ product.title }}</h2>
+    <p class="desc line-clamp-1">{{ product.description }}</p>
+    <div class="feats">
+      <span class="feat">{{ product.brand.name }}</span>
+      <span class="feat line-clamp-1">{{ product.slug }}</span>
+      <span class="feat">{{ product.category.name }}</span>
+    </div>
+    <div class="bottom">
+      <div class="price">
+        <span class="old">$2,499</span>
+        <span class="new">{{ product.price | currency : "GBP" }}</span>
+      </div>
+      <button class="btn" (click)="onAddToCart()">
+        <span>Add to Cart</span>
+        <svg
+          class="icon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 01-8 0" />
+        </svg>
+      </button>
+    </div>
+    <div class="meta">
+      <div class="rating">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="#FFD700"
+          stroke="#FFD700"
+          stroke-width="0.5"
+        >
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+          />
+        </svg>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="#FFD700"
+          stroke="#FFD700"
+          stroke-width="0.5"
+        >
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+          />
+        </svg>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="#FFD700"
+          stroke="#FFD700"
+          stroke-width="0.5"
+        >
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+          />
+        </svg>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="#FFD700"
+          stroke="#FFD700"
+          stroke-width="0.5"
+        >
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+          />
+        </svg>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="#FFD700"
+          stroke="#FFD700"
+          stroke-width="0.5"
+        >
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+          />
+        </svg>
+        <span class="rcount">{{ product.ratingsAverage }} Reviews</span>
+      </div>
+      <div class="stock">In Stock</div>
+    </div>
+  </div>
 </div>

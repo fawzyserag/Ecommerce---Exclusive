@@ -1,0 +1,96 @@
+@if (isLoading) { @if (cartDetails.numOfCartItems!=0) {
+<section class="container mx-auto p-10">
+  <div class="breadcrumb">
+    <a routerLink="/home" class="text-gray-400 cursor-pointer">Home</a>
+    <span class="text-gray-300 ms-2 me-2">/</span>
+    <span class="cursor-pointer text-main">Cart</span>
+  </div>
+  <div class="grid grid-cols-12 bg-white shadow p-4 justify-between m-5 gap-2">
+    <div class="col-span-2"></div>
+    <div class="col-span-2">Product Name</div>
+    <div class="col-span-2">Price</div>
+    <div class="col-span-2">Quantity</div>
+    <div class="col-span-2">Subtotal</div>
+    <div class="col-span-2">Action</div>
+  </div>
+  @for (item of cartDetails.data.products; track item.product._id) {
+  <app-cart-item
+    [product]="item"
+    (removeProduct)="removeProduct($event)"
+    (updateProductQty)="updateQty($event.id, $event.newCount)"
+  ></app-cart-item>
+  }
+
+  <div class="flex justify-between p-4">
+    <button
+      routerLink="/product-list"
+      class="border border-black text-black p-3 rounded cursor-pointer hover:bg-main hover:text-white hover:border-transparent transition duration-300 w-auto"
+    >
+      Return To Shop
+    </button>
+    <button
+      (click)="clearCart()"
+      class="border border-black text-black p-3 rounded cursor-pointer hover:bg-main hover:text-white hover:border-transparent transition duration-300 w-auto"
+    >
+      Update Cart
+    </button>
+  </div>
+  <div
+    class="p-5 ms:grid ms:grid-cols-12 ms:justify-between flex flex-col gap-3"
+  >
+    <div class="coupon flex flex-row gap-2 col-span-6 h-max">
+      <input
+        type="text"
+        id="coupon"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 w-70"
+        placeholder="Coupon Code"
+      />
+      <button
+        class="p-3 rounded cursor-pointer bg-main text-white transition duration-300 w-auto"
+      >
+        Apply Coupon
+      </button>
+    </div>
+    <div class="col-span-6 w-80 ms-auto">
+      <div class="border border-black-2 p-5">
+        <span>Cart Total</span>
+        <div class="mt-5">
+          <div class="flex flex-row gap-46">
+            <span>subtotal:</span>
+            <span>${{ cartDetails.data.totalCartPrice }}</span>
+          </div>
+          <hr class="ms-0 m-2 w-70 text-gray-300" />
+          <div class="flex flex-row gap-46">
+            <span>shipping:</span>
+            <span>Free</span>
+          </div>
+          <hr class="ms-0 m-2 w-70 text-gray-300" />
+          <div class="flex flex-row gap-52">
+            <span>Total:</span>
+            <span>${{ cartDetails.data.totalCartPrice }}</span>
+          </div>
+          <hr class="ms-0 m-2 w-70 text-gray-300" />
+          <div class="items-center">
+            <button
+              [routerLink]="['/checkout', cartDetails.cartId]"
+              class="w-full p-3 rounded cursor-pointer bg-main text-white transition duration-300"
+            >
+              Process to checkout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+}@else {
+<section class="container mx-auto p-10 text-center">
+  <div class="text-center">
+    <i class="fa-solid fa-cart-plus fa-10x text-main"></i>
+    <p class="text-gray-400 mt-3 text-2xl">
+      Looks like you have not added anything to your cart. Go ahead & explore
+      top categories
+    </p>
+  </div>
+</section>
+} }

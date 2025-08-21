@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-main-slider',
-  imports: [CarouselModule],
+  imports: [CarouselModule,RouterLink],
   templateUrl: './main-slider.component.html',
   styleUrl: './main-slider.component.css',
 })

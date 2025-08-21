@@ -41,7 +41,7 @@ export class LoginComponent {
       ],
     });
   }
-
+  
   submitForm() {
     this.isLoading = false;
     if (this.authForm.valid || !this.isLoading) {
@@ -53,6 +53,7 @@ export class LoginComponent {
         console.log(response);
         this.isLoading = true;
         if (response.message == 'success') {
+          this.authService.saveToken(response.token);
           this.router.navigate(['/home']);
         }
       },
@@ -68,7 +69,7 @@ export class LoginComponent {
     this.isShowPassword = !this.isShowPassword;
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.formInit();
   }
 }

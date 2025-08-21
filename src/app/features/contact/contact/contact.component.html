@@ -1,1 +1,72 @@
-<p>contact works!</p>
+<section class="container mx-auto p-10">
+  <div class="breadcrumb">
+    <a routerLink="/home" class="text-gray-400 cursor-pointer">Home</a>
+    <span class="text-gray-300 ms-2 me-2">/</span>
+    <span class="cursor-pointer text-main">Contact Us</span>
+  </div>
+  <div class="mt-20 mb-20 flex flex-row gap-10 ms-50">
+    <div class="bg-white shadow p-10 w-80">
+      <div class="flex flex-col gap-3 m-4">
+        <div class="flex flex-row gap-2 items-center">
+          <i class="fa fa-phone bg-main text-white rounded-full fa-1x p-3"></i
+          ><span class="font-bold">Call To Us</span>
+        </div>
+        <span>we are available 24/7, 7 days a week</span>
+        <span>Phone: +8801611112222</span>
+      </div>
+      <hr class="bg-gray-300" />
+      <div class="flex flex-col gap-3 m-4">
+        <div class="flex flex-row gap-2 items-center">
+          <i
+            class="fa fa-envelope bg-main text-white rounded-full fa-1x p-3"
+          ></i
+          ><span class="font-bold">Write To Us</span>
+        </div>
+        <span>Fill out our form and we will contact you within 24 hours.</span>
+        <span>Emails: customer{{ "@" }}exclusive.com</span>
+        <span>Emails: support{{ "@" }}exclusive.com</span>
+      </div>
+    </div>
+    <div class="bg-white shadow p-10 flex flex-col gap-10">
+      <div class="flex flex-row gap-3">
+        <input
+          type="text"
+          name="Name"
+          id=""
+          class="bg-gray-100 p-3"
+          placeholder="Your Name"
+          required
+        />
+        <input
+          type="email"
+          name="Email"
+          id=""
+          class="bg-gray-100 p-3"
+          placeholder="Your Email"
+          required
+        />
+        <input
+          type="number"
+          name="Phone"
+          id=""
+          class="bg-gray-100 p-3"
+          placeholder="Your Phone"
+          required
+        />
+      </div>
+      <div class="h-70">
+        <textarea
+          name="message"
+          id=""
+          placeholder="Your Message"
+          class="bg-gray-100 p-3 w-full h-full"
+        ></textarea>
+      </div>
+      <div class="relative">
+        <button class="main-btn opacity-100 w-40 absolute right-1">
+          Send Message
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
