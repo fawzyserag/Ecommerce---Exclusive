@@ -50,7 +50,7 @@
           <div class="flex flex-row items-center">
             <input
               [type]="isShowPassword ? 'password' : 'text'"
-              formControlName="password"
+              formControlName="rePassword"
               class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-black dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder="Enter your rePassword ... "
             /><i
@@ -64,7 +64,7 @@
           ></app-validation-messages>
         </div>
         <button
-          [disabled]="authForm.invalid || !isLoading"
+          [disabled]="authForm.invalid"
           [class.bg-gray-300]="authForm.invalid || !isLoading"
           type="submit"
           class="main-btn opacity-100 translate-y-0"

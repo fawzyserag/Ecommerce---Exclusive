@@ -68,11 +68,10 @@ export class RegisterComponent {
 
   submitForm() {
     this.isLoading = false;
-    if (this.authForm.valid || !this.isLoading) {
+    if (this.authForm.valid) {
       console.log(this.authForm.value);
-    }
 
-    this.authService.register(this.authForm.value).subscribe({
+      this.authService.register(this.authForm.value).subscribe({
       next: (response) => {
         console.log(response);
         this.isLoading = true;
@@ -86,6 +85,9 @@ export class RegisterComponent {
         this.isLoading = true;
       },
     });
+    }
+
+
   }
 
   showPassword() {
