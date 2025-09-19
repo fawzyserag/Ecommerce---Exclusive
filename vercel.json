@@ -1,6 +1,3 @@
 {
-  "rewrites": [
-    { "source": "/product-details/:id", "destination": "/index.html" },
-    { "source": "/checkout/:id", "destination": "/index.html" }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
