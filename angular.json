@@ -31,19 +31,14 @@
               "node_modules/ngx-spinner/animations/ball-atom.css",
               "src/styles.css"
             ],
-            "scripts": ["./node_modules/flowbite/dist/flowbite.min.js"],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "scripts": ["./node_modules/flowbite/dist/flowbite.min.js"]
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "with": "./src/environment/environment.ts",
-                  "replace": "./src/environment/environment.prod.ts"
+                  "replace": "./src/environment/environment.ts",
+                  "with": "./src/environment/environment.prod.ts"
                 }
               ],
               "budgets": [
