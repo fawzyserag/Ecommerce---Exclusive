@@ -207,6 +207,11 @@
         <li>
           <a routerLink="/wishlist" class="relative">
             <i class="fa-regular fa-heart fa-xl cursor-pointer"></i>
+            <div
+              class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-main border-2 border-white rounded-full -top-3 -end-3"
+            >
+              {{ wishlistCounter }}
+            </div>
           </a>
         </li>
         <li>
@@ -233,7 +238,10 @@
             type="button"
           >
             <i class="fa-solid fa-user fa-xl"></i>
-            Bonnie Green
+            <span *ngIf="userName; else guest">{{ userName }}</span>
+            <ng-template #guest>
+            <span>Guest</span>
+            </ng-template>
             <svg
               class="w-2.5 h-2.5 ms-3"
               aria-hidden="true"

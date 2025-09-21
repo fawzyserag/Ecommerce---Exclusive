@@ -11,6 +11,7 @@ import {
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
 import { ValidationMessagesComponent } from '../../../../shared/components/validation-messages/validation-messages.component';
+import { response } from 'express';
 
 @Component({
   selector: 'app-login',
@@ -41,7 +42,7 @@ export class LoginComponent {
       ],
     });
   }
-  
+
   submitForm() {
     this.isLoading = false;
     if (this.authForm.valid || !this.isLoading) {
@@ -56,6 +57,14 @@ export class LoginComponent {
           this.authService.saveToken(response.token);
           this.router.navigate(['/home']);
         }
+           this.authService.getUserProfile().subscribe(profile => {
+  this.authService.setUser({
+    name: profile.name,
+    email: profile.email
+  });
+});
+
+          localStorage.setItem('user', JSON.stringify(response.user));
       },
       error: ({ error }) => {
         console.log(error);
@@ -72,4 +81,5 @@ export class LoginComponent {
   ngOnInit(): void {
     this.formInit();
   }
+
 }

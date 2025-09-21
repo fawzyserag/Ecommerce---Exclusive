@@ -21,16 +21,40 @@ export class ProductCardComponent {
   onAddToCart(){
     this.addToCart.emit(this.product._id)
   }
-  addToWishlist(productId:string){
-    this.wish.addProduct(productId).subscribe({
-      next:(res)=>{
-        this.toastr.success(res.message,'',{
-          closeButton:true,
-          progressBar:true,
-          progressAnimation:'increasing'
-        })
+  addToWishlist(productId: string) {
+  this.wish.addProduct(productId).subscribe({
+    next: (res) => {
+      this.toastr.success('Added to wishlist ❤️', '', {
+        closeButton: true,
+        progressBar: true,
+        progressAnimation: 'increasing',
+      });
 
+      console.log(res);
+
+      // لو الـ API بيرجع عدد المنتجات
+      if (res.numOfWishlistItems !== undefined) {
+        this.wish.wishlistCount.next(res.numOfWishlistItems);
       }
-    })
-  }
+
+      // لو بيرجع البيانات نفسها
+      if (res.data) {
+        this.wish = res.data;
+      }
+    },
+    error: (err) => {
+      console.error(err);
+      this.toastr.error(
+        err.error?.message || 'Failed to add to wishlist',
+        '',
+        {
+          closeButton: true,
+          progressBar: true,
+          progressAnimation: 'increasing',
+        }
+      );
+    },
+  });
+}
+
 }

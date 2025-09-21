@@ -25,7 +25,7 @@ import { passwordMatchVlidator } from '../../../../shared/helpers/passowrd-valid
 export class RegisterComponent {
   resMsg: string = '';
   isLoading = true;
-  authForm! : FormGroup;
+  authForm!: FormGroup;
   isShowPassword: boolean = true;
   private readonly authService = inject(AuthServiceService);
   private readonly router = inject(Router);
@@ -72,22 +72,25 @@ export class RegisterComponent {
       console.log(this.authForm.value);
 
       this.authService.register(this.authForm.value).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.isLoading = true;
-        if (response.message == 'success') {
-          this.router.navigate(['/login']);
-        }
-      },
-      error: ({ error }) => {
-        console.log(error);
-        this.resMsg = error.message;
-        this.isLoading = true;
-      },
-    });
+        next: (response) => {
+          console.log(response);
+          this.isLoading = true;
+          if (response.message == 'success') {
+            this.router.navigate(['/login']);
+            this.authService.setUser({
+            name: response.user.name,
+            email: response.user.email,
+          });
+          }
+
+        },
+        error: ({ error }) => {
+          console.log(error);
+          this.resMsg = error.message;
+          this.isLoading = true;
+        },
+      });
     }
-
-
   }
 
   showPassword() {

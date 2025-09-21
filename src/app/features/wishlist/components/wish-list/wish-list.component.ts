@@ -1,104 +1,79 @@
-import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { CartService } from '../../../cart/services/cart.service';
-import { Wishlist } from '../../models/wishlist';
+import { Component, OnInit } from '@angular/core';
 import { WishService } from '../../services/wish.service';
-import { CurrencyPipe, UpperCasePipe } from '@angular/common';
+import { CurrencyPipe, NgFor, NgIf, UpperCasePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { CartService } from '../../../cart/services/cart.service'; // ✨ لو عندك كارت سيرفس
+import { RouterLink } from '@angular/router';
+
 @Component({
-  selector: 'app-wish-list',
-  imports: [CurrencyPipe,UpperCasePipe],
+  selector: 'app-wishlist',
+  imports: [CurrencyPipe, UpperCasePipe, NgIf, NgFor,RouterLink],
   templateUrl: './wish-list.component.html',
-  styleUrl: './wish-list.component.css'
+  styleUrls: ['./wish-list.component.css'],
 })
-export class WishListComponent {
-  count:number=0
-  totalPrice:number=0;
-  cartNumber!:number;
-  wishList:Wishlist []=[];
-  router: any;
-  wishlsitId!:string
-  constructor(private wishlsit:WishService,private _router:Router,private cart:CartService, private toastr: ToastrService){}
-  getwishlsitproducts(){
-    this.wishlsit.getProduct().subscribe({
-      next:(res)=>{
-        // this.totalPrice=res.data.totalwishlsitPrice;
-        this.wishList=res.data;
-        this.count=res.count
-        console.log(res);
-        this.wishlsitId=res.wishlsitId;
-        // this.wishlsit.wishlsitNumber.next(res.numOfwishlsitItems);
+export class WishlistComponent implements OnInit {
+  wishList: any[] = [];
 
-
-
-      }
-    })
-
-  }
-  addToCart(productId:string){
-    this.cart.addProductToCart(productId).subscribe({
-      next:(res)=>{
-        this.toastr.success(res.message,'',{
-        closeButton:true,
-        progressBar:true,
-        progressAnimation:'increasing'
-      })
-
-      console.log(res.message);
-      this.cart.cartNumber.next(res.numOfCartItems);
-
-
-      }
-
-    })
-  }
-
-// updatewishlsit(productId:string,count:number){
-//   this.wishlsit.updateProduct(productId,count).subscribe({
-//     next:(res)=>{
-//       console.log(res);
-//       this.totalPrice=res.data.totalwishlsitPrice;
-//         this.wishList=res.data.products;
-//         this.wishlsit.wishlsitNumber.next(res.numOfwishlsitItems);
-
-
-//     }
-//   })
-// }
-
-
-
-clearAll(){
-  this.wishlsit.clearwishlist().subscribe({
-next:(res)=>{
-  console.log(res)
-  this.getwishlsitproducts()
-
-}
-  })
-
-  }
-
-removeitem(productId:string){
-  this.wishlsit.removeProduct(productId).subscribe({
-    next:(res)=>{
-      this.totalPrice=res.data.totalwishlsitPrice;
-      this.wishList=res.data.products;
-
-
-    }
-  })
-}
-
-
+  constructor(
+    private wishService: WishService,
+    private toastr: ToastrService,
+    private cartService: CartService // ✨ عشان نضيف للكارت
+  ) {}
 
   ngOnInit(): void {
-   this.getwishlsitproducts()
-
+    this.wishService.wishlistItems.subscribe((items) => (this.wishList = items));
   }
-back(){
-  this._router.navigate(['/home']);
 
+  loadWishlist(): void {
+    this.wishService.getProduct().subscribe({
+      next: (res: any) => {
+        if (res?.data) {
+          this.wishList = res.data;
+        }
+      },
+      error: (err) => {
+        console.error('Error loading wishlist:', err);
+      },
+    });
+  }
 
-}
+  removeFromWishlist(productId: string): void {
+    this.wishService.removeProduct(productId).subscribe({
+      next: (res: any) => {
+        this.wishList = this.wishList.filter((item) => item._id !== productId);
+
+        if (res?.numOfWishlistItems !== undefined) {
+          this.wishService.wishlistCount.next(res.numOfWishlistItems);
+        }
+
+        this.toastr.success('Item removed from wishlist');
+      },
+      error: (err) => {
+        console.error('Error removing item from wishlist:', err);
+      },
+    });
+  }
+
+  clearAll(): void {
+    this.wishList = []; // ✨ امسح الليستة من الـ UI
+    this.toastr.warning('Wishlist cleared');
+    // مفيش endpoint عندك → لو عملت endpoint بعدين ضيفه هنا
+  }
+
+  // ✨ إضافة منتج للكارت
+  onAddToCart(productId: string): void {
+    this.cartService.addProductToCart(productId).subscribe({
+      next: () => {
+        this.toastr.success('Item added to cart');
+      },
+      error: (err) => {
+        console.error('Error adding item to cart:', err);
+        this.toastr.error('Failed to add item to cart');
+      },
+    });
+  }
+
+  trackById(index: number, item: any): any {
+    return item._id || item.id || index;
+  }
 }

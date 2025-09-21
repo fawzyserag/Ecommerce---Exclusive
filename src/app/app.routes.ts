@@ -17,7 +17,7 @@ import { isLoggedGuard } from './core/guards/is-logged.guard';
 import { CartListComponent } from './features/cart/components/cart-list/cart-list.component';
 import { CheckoutComponent } from './features/orders/components/checkout/checkout.component';
 import { OrdersComponent } from './features/orders/components/orders/orders.component';
-import { WishListComponent } from './features/wishlist/components/wish-list/wish-list.component';
+import { WishlistComponent } from './features/wishlist/components/wish-list/wish-list.component';
 
 export const routes: Routes = [
   {
@@ -45,7 +45,7 @@ export const routes: Routes = [
       { path: 'cart', component: CartListComponent },
       { path: 'checkout/:id', component: CheckoutComponent },
       { path: 'allorders', component: OrdersComponent },
-      { path: 'wishlist', component: WishListComponent },
+      { path: 'wishlist', component: WishlistComponent },
       { path: 'category', component: CategoriesComponent },
     ],
   },
